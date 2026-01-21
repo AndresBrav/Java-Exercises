@@ -28,8 +28,8 @@ public class Ejercicio2Vehiculo {
         
         for (Vehiculo i:vehiculos){
             i.mostrarDatos();
-            System.out.println("Costo de Mantenimiento: "+i.calcularMantenimiento());
-            System.out.println("");
+            //System.out.println("Costo de Mantenimiento: "+i.calcularMantenimiento());
+            //System.out.println("");
         }
     }
 }
@@ -67,6 +67,13 @@ class Auto extends Vehiculo {
     public double calcularMantenimiento(){
         return kilometrosRecorridos * 0.5 ; 
     }
+    
+    @Override 
+    public void mostrarDatos(){
+        super.mostrarDatos();
+        System.out.println("Costo de Mantenimiento: "+calcularMantenimiento());
+        System.out.println("");
+    }
 
 }
 
@@ -83,6 +90,13 @@ class Moto extends Vehiculo {
         int costo = (cilindrada > 500) ? 200 : 100;
         return costo;
     }
+    
+    @Override 
+    public void mostrarDatos(){
+        super.mostrarDatos();
+        System.out.println("Costo de Mantenimiento: "+calcularMantenimiento());
+        System.out.println("");
+    }
 }
 
 class Camion extends Vehiculo {
@@ -96,5 +110,12 @@ class Camion extends Vehiculo {
     @Override
     public double calcularMantenimiento(){
         return capacidadCarga * 150;
+    }
+    
+    @Override 
+    public void mostrarDatos(){
+        super.mostrarDatos();
+        System.out.println("Costo de Mantenimiento: "+calcularMantenimiento());
+        System.out.println("");
     }
 }

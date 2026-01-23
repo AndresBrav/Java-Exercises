@@ -18,20 +18,20 @@ public class ObjetoEnTablero {
         this.nombre = nombre;
     }
 
-    public void moverX(int pasos) {
-        posicion.setPosx(pasos);
+    public void moverFila(int pasos) {
+        posicion.setFila(pasos);
     }
 
-    public void moverY(int pasos) {
-        posicion.setPosy(pasos);
+    public void moverColumna(int pasos) {
+        posicion.setColumna(pasos);
     }
 
-    public int obtenerPosX() {
-        return posicion.getPosx();
+    public int obtenerFila() {
+        return posicion.getFila();
     }
 
-    public int obtenerPosY() {
-        return posicion.getPosy();
+    public int obtenerColumna() {
+        return posicion.getColumna();
     }
 
     public String getNombre() {

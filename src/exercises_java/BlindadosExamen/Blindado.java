@@ -15,9 +15,10 @@ public class Blindado extends ObjetoEnTablero {
 
     private int espesorBlindaje;
     private boolean turno;
+    private String direccionTorneta;
 
-    public Blindado(Posicion posblindado,String nombre,int espesorBlindaje, boolean turno) {
-        super(posblindado,nombre);
+    public Blindado(Posicion posblindado, String nombre, int espesorBlindaje, boolean turno) {
+        super(posblindado, nombre);
         this.espesorBlindaje = espesorBlindaje;
         this.turno = turno;
     }
@@ -36,6 +37,14 @@ public class Blindado extends ObjetoEnTablero {
 
     public void setEspesorBlindaje(int espesorBlindaje) {
         this.espesorBlindaje = espesorBlindaje;
+    }
+
+    public String getDireccionTorneta() {
+        return direccionTorneta;
+    }
+
+    public void setDireccionTorneta(String direccionTorneta) {
+        this.direccionTorneta = direccionTorneta;
     }
 
 }

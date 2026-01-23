@@ -12,6 +12,7 @@ public class Simulacion {
     public static void main(String[] args) {
         Tablero tb1 = new Tablero();
         tb1.IncializarElementos();
-        tb1.mostrarTablero();
+        tb1.JugarPartida();
+
     }
 }

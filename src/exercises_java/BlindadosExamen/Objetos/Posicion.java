@@ -9,29 +9,28 @@ package exercises_java.BlindadosExamen.Objetos;
  * @author Asus
  */
 public class Posicion {
-    private int posx;
-    private int posy;
-    
-    public Posicion(int posx, int posy){
-        this.posx = posx;
-        this.posy = posy;
+    private int fila;
+    private int columna;
+
+    public Posicion(int fila, int columna) {
+        this.fila = fila;
+        this.columna = columna;
     }
 
-    public int getPosx() {
-        return posx;
+    public int getFila() {
+        return fila;
     }
 
-    public void setPosx(int posx) {
-        this.posx = posx;
+    public void setFila(int fila) {
+        this.fila = fila;
     }
 
-    public int getPosy() {
-        return posy;
+    public int getColumna() {
+        return columna;
     }
 
-    public void setPosy(int posy) {
-        this.posy = posy;
+    public void setColumna(int columna) {
+        this.columna = columna;
     }
-    
-    
+
 }

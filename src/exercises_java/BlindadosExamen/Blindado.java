@@ -15,12 +15,21 @@ public class Blindado extends ObjetoEnTablero {
 
     private int espesorBlindaje;
     private boolean turno;
-    private String direccionTorneta;
+    private String direccionTorneta = "D";
+
+    private ProyectilAntitanque antitanque;
+    private ProyectilExplosivo explosivo;
+    private ProyectilNormal normal;
+    private ProyectilPerforante perforante;
 
     public Blindado(Posicion posblindado, String nombre, int espesorBlindaje, boolean turno) {
         super(posblindado, nombre);
         this.espesorBlindaje = espesorBlindaje;
         this.turno = turno;
+        this.antitanque = new ProyectilAntitanque(posblindado, "proAnti", 150, "AT");
+        this.explosivo = new ProyectilExplosivo(posblindado, "proExplo", 100, "EX");
+        this.normal = new ProyectilNormal(posblindado, "proNormal", 50, "NO");
+        this.perforante = new ProyectilPerforante(posblindado, "proPerfora", 200, "PE");
     }
 
     public boolean isTurno() {
@@ -45,6 +54,23 @@ public class Blindado extends ObjetoEnTablero {
 
     public void setDireccionTorneta(String direccionTorneta) {
         this.direccionTorneta = direccionTorneta;
+    }
+
+    // retornar proyectiles
+    public ProyectilAntitanque getAntitanque() {
+        return antitanque;
+    }
+
+    public ProyectilExplosivo getExplosivo() {
+        return explosivo;
+    }
+
+    public ProyectilNormal getNormal() {
+        return normal;
+    }
+
+    public ProyectilPerforante getPerforante() {
+        return perforante;
     }
 
 }

@@ -102,7 +102,7 @@ public class Tablero {
     }
 
     public void moverBlindado(Blindado blindadoOrigen, Blindado blindadoOpenente) {
-        System.out.println("Turno del blindado " + blindadoOrigen.getNombre());
+        // System.out.println("Turno del blindado " + blindadoOrigen.getNombre());
         int fila = blindadoOrigen.obtenerFila();
         int col = blindadoOrigen.obtenerColumna();
         Scanner sc = new Scanner(System.in);
@@ -151,7 +151,8 @@ public class Tablero {
                 System.out.println("No puedes moverte, hay un muro");
                 blindadoOrigen.setTurno(false);
                 blindadoOrigen.setDireccionTorneta("A");
-                System.out.println("direccion torneta del blindado 1: " + blindadoOrigen.getDireccionTorneta());
+                System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
+                        + blindadoOrigen.getDireccionTorneta());
 
                 blindadoOpenente.setTurno(true);
             }
@@ -208,6 +209,7 @@ public class Tablero {
     }
 
     public void JugarPartida() {
+        mostrarTablero(); // mostrar escenario
 
         ObjetoEnTablero blindado = tablero[1][1];
         ObjetoEnTablero blindadootro = tablero[3][6];
@@ -217,18 +219,50 @@ public class Tablero {
         // System.out.println(blindado1.getEspesorBlindaje());
         boolean JugarPartida = true;
 
+        Scanner sc = new Scanner(System.in);
         // System.out.println(direccion);
         while (JugarPartida) {
 
             if (blindado1.isTurno()) {
-                moverBlindado(blindado1, blindado2);
+                System.out.println("Turno del blindado " + blindado1.getNombre());
+
+                System.out.println("1 moverte - 2 disparar");
+
+                String opcion = sc.nextLine();
+
+                if (opcion.equals("1")) {
+
+                    moverBlindado(blindado1, blindado2);
+
+                }
+
+                if (opcion.equals("2")) {
+
+                    dispararBlindado(blindado1, blindado2);
+
+                }
 
             }
             mostrarTablero();
 
             if (blindado2.isTurno()) {
+                System.out.println("Turno del blindado " + blindado2.getNombre());
 
-                moverBlindado(blindado2, blindado1);
+                System.out.println("1 moverte - 2 disparar");
+
+                String opcion = sc.nextLine();
+
+                if (opcion.equals("1")) {
+
+                    moverBlindado(blindado2, blindado1);
+
+                }
+
+                if (opcion.equals("2")) {
+
+                    dispararBlindado(blindado2, blindado1);
+
+                }
 
                 // JugarPartida = false;
             }
@@ -236,6 +270,39 @@ public class Tablero {
 
             // sc.close();
         }
+    }
+
+    public void dispararBlindado(Blindado blindadoOrigen, Blindado blindadoOponente) {
+        System.out.println("Se disparo " + blindadoOrigen.getNombre() + ".......................");
+
+        System.out.println("Elige una de las opciones");
+        System.out.println("1: Perforante\n" +
+                "2: Explosivo\n" +
+                "3: Incendiario\n" +
+                "4: Humoristico\n");
+
+        Scanner sc = new Scanner(System.in);
+        String opcion = sc.nextLine();
+
+        if (opcion.equals("1")) {
+            ObjetoEnTablero proyectil = blindadoOrigen.getAntitanque();
+            System.out.println("Se disparo perforante");
+        }
+
+        if (opcion.equals("2")) {
+            System.out.println("Se disparo explosivo");
+        }
+
+        if (opcion.equals("3")) {
+            System.out.println("Se disparo antitanque");
+        }
+
+        if (opcion.equals("4")) {
+            System.out.println("Se disparo normal");
+        }
+
+        blindadoOrigen.setTurno(false);
+        blindadoOponente.setTurno(true);
     }
 
     public void mostrarTablero() {

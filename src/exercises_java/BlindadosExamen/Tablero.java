@@ -305,48 +305,128 @@ public class Tablero {
             String direccion = blindadoOrigen.getDireccionTorneta();
 
             if (direccion.equals("D")) {
+                // DERECHA → columna + 1
                 while (columna + 1 < tablero[fila].length &&
                         tablero[fila][columna + 1] instanceof Camino) {
+
                     proyectil.moverColumna(columna + 1);
                     columna++;
                 }
 
                 if (proyectil.obtenerColumna() + 1 < tablero[proyectil.obtenerFila()].length) {
 
-                    // en caso de que sea muro
+                    // muro
                     if (tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1] instanceof Muro) {
-                        tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1] = new Camino(
-                                new Posicion(proyectil.obtenerFila(), proyectil.obtenerColumna() + 1), "c");
+                        tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1] = new Camino(new Posicion(
+                                proyectil.obtenerFila(),
+                                proyectil.obtenerColumna() + 1), "c");
                     }
 
-                    // en caso de que sea otro blindado
+                    // blindado
                     if (tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1] instanceof Blindado) {
                         Blindado blindado = (Blindado) tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1];
+
                         blindado.setEspesorBlindaje(0);
                         System.out.println("Se destruyo el blindado " + blindado.getNombre());
-                        // creamos un nuevo camino en la posicion del blindado destruido
-                        tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1] = new Camino(
-                                new Posicion(proyectil.obtenerFila(), proyectil.obtenerColumna() + 1), "c");
+
+                        tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1] = new Camino(new Posicion(
+                                proyectil.obtenerFila(),
+                                proyectil.obtenerColumna() + 1), "c");
                     }
                 }
 
-                Proyectil p = (Proyectil) proyectil;
-                p.cambiarCantidadProyectil();
+            } else if (direccion.equals("A")) {
+                // IZQUIERDA → columna - 1
+                while (columna - 1 >= 0 &&
+                        tablero[fila][columna - 1] instanceof Camino) {
 
-                System.out.println("quedan " + p.retornarProyectiles() + " proyectiles");
-                proyectil.moverFila(blindadoOrigen.obtenerFila()); // movemos el proyectil a la fila del blindado
-                proyectil.moverColumna(blindadoOrigen.obtenerColumna()); // movemos el proyectil a la columna del
-                                                                         // blindado
+                    proyectil.moverColumna(columna - 1);
+                    columna--;
+                }
 
-                System.out.println("la fila del proyectil es " + proyectil.obtenerFila());
-                System.out.println("la columna del proyectil es " + proyectil.obtenerColumna());
+                if (proyectil.obtenerColumna() - 1 >= 0) {
+
+                    // muro
+                    if (tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() - 1] instanceof Muro) {
+                        tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() - 1] = new Camino(new Posicion(
+                                proyectil.obtenerFila(),
+                                proyectil.obtenerColumna() - 1), "c");
+                    }
+
+                    // blindado
+                    if (tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() - 1] instanceof Blindado) {
+                        Blindado blindado = (Blindado) tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() - 1];
+
+                        blindado.setEspesorBlindaje(0);
+                        System.out.println("Se destruyo el blindado " + blindado.getNombre());
+
+                        tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() - 1] = new Camino(new Posicion(
+                                proyectil.obtenerFila(),
+                                proyectil.obtenerColumna() - 1), "c");
+                    }
+                }
 
             } else if (direccion.equals("S")) {
+                // ABAJO → fila + 1
+                while (fila + 1 < tablero.length &&
+                        tablero[fila + 1][columna] instanceof Camino) {
 
-            } else if (direccion.equals("A")) {
+                    proyectil.moverFila(fila + 1);
+                    fila++;
+                }
 
-            } else { /* W */
+                if (proyectil.obtenerFila() + 1 < tablero.length) {
 
+                    // muro
+                    if (tablero[proyectil.obtenerFila() + 1][proyectil.obtenerColumna()] instanceof Muro) {
+                        tablero[proyectil.obtenerFila() + 1][proyectil.obtenerColumna()] = new Camino(new Posicion(
+                                proyectil.obtenerFila() + 1,
+                                proyectil.obtenerColumna()), "c");
+                    }
+
+                    // blindado
+                    if (tablero[proyectil.obtenerFila() + 1][proyectil.obtenerColumna()] instanceof Blindado) {
+                        Blindado blindado = (Blindado) tablero[proyectil.obtenerFila() + 1][proyectil.obtenerColumna()];
+
+                        blindado.setEspesorBlindaje(0);
+                        System.out.println("Se destruyo el blindado " + blindado.getNombre());
+
+                        tablero[proyectil.obtenerFila() + 1][proyectil.obtenerColumna()] = new Camino(new Posicion(
+                                proyectil.obtenerFila() + 1,
+                                proyectil.obtenerColumna()), "c");
+                    }
+                }
+
+            } else { // W
+                // ARRIBA → fila - 1
+                while (fila - 1 >= 0 &&
+                        tablero[fila - 1][columna] instanceof Camino) {
+
+                    proyectil.moverFila(fila - 1);
+                    fila--;
+                }
+
+                if (proyectil.obtenerFila() - 1 >= 0) {
+
+                    // muro
+                    if (tablero[proyectil.obtenerFila() - 1][proyectil.obtenerColumna()] instanceof Muro) {
+                        tablero[proyectil.obtenerFila() - 1][proyectil.obtenerColumna()] = new Camino(new Posicion(
+                                proyectil.obtenerFila() - 1,
+                                proyectil.obtenerColumna()), "c");
+                    }
+
+                    // blindado
+                    if (tablero[proyectil.obtenerFila() - 1][proyectil.obtenerColumna()] instanceof Blindado) {
+                        Blindado blindado = (Blindado) tablero[proyectil.obtenerFila() - 1][proyectil.obtenerColumna()];
+
+                        blindado.setEspesorBlindaje(0);
+                        System.out.println("Se destruyo el blindado " + blindado.getNombre());
+
+                        tablero[proyectil.obtenerFila() - 1][proyectil.obtenerColumna()] = new Camino(new Posicion(
+                                proyectil.obtenerFila() - 1,
+                                proyectil.obtenerColumna()), "c");
+                    }
+                }
             }
 
         }

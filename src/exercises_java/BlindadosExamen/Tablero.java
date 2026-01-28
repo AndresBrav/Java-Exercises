@@ -102,110 +102,116 @@ public class Tablero {
     }
 
     public void moverBlindado(Blindado blindadoOrigen, Blindado blindadoOpenente) {
-        // System.out.println("Turno del blindado " + blindadoOrigen.getNombre());
-        int fila = blindadoOrigen.obtenerFila();
-        int col = blindadoOrigen.obtenerColumna();
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Ingrese dirección (W=Arriba, A=Izquierda, S=Abajo, D=Derecha): ");
-        String direccion = sc.nextLine().toUpperCase();
 
-        if (direccion.equals("W")) {
-            System.out.println("Movimiento hacia arriba");
-            if (tablero[fila - 1][col] instanceof Camino) {
-                tablero[fila - 1][col] = blindadoOrigen;
-                blindadoOrigen.moverFila(fila - 1); // actualizamos fila del blindado
-                blindadoOrigen.setTurno(false); // cambiamos turno
-                blindadoOrigen.setDireccionTorneta("W"); // cambiamos direccion de la torneta
-                System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
-                        + blindadoOrigen.getDireccionTorneta());
+        try {
 
-                blindadoOpenente.setTurno(true); // cambiamos turno
-                tablero[fila][col] = new Camino(new Posicion(fila, col), "c"); // creamos un camino
+            // System.out.println("Turno del blindado " + blindadoOrigen.getNombre());
+            int fila = blindadoOrigen.obtenerFila();
+            int col = blindadoOrigen.obtenerColumna();
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Ingrese dirección (W=Arriba, A=Izquierda, S=Abajo, D=Derecha): ");
+            String direccion = sc.nextLine().toUpperCase();
+
+            if (direccion.equals("W")) {
+                System.out.println("Movimiento hacia arriba");
+                if (tablero[fila - 1][col] instanceof Camino) {
+                    tablero[fila - 1][col] = blindadoOrigen;
+                    blindadoOrigen.moverFila(fila - 1); // actualizamos fila del blindado
+                    blindadoOrigen.setTurno(false); // cambiamos turno
+                    blindadoOrigen.setDireccionTorneta("W"); // cambiamos direccion de la torneta
+                    System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
+                            + blindadoOrigen.getDireccionTorneta());
+
+                    blindadoOpenente.setTurno(true); // cambiamos turno
+                    tablero[fila][col] = new Camino(new Posicion(fila, col), "c"); // creamos un camino
+                }
+
+                if (tablero[fila - 1][col] instanceof Muro) {
+                    System.out.println("no puedes moverte hay un muro");
+                    blindadoOrigen.setTurno(false); // cambiamos turno
+                    blindadoOrigen.setDireccionTorneta("W"); // cambiamos direccion de la torneta
+                    System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
+                            + blindadoOrigen.getDireccionTorneta());
+
+                    blindadoOpenente.setTurno(true); // cambiamos turno
+                }
+
+            } else if (direccion.equals("A")) {
+                System.out.println("Movimiento hacia la izquierda");
+                if (tablero[fila][col - 1] instanceof Camino) {
+                    tablero[fila][col - 1] = blindadoOrigen;
+                    blindadoOrigen.moverColumna(col - 1);
+                    blindadoOrigen.setTurno(false);
+                    blindadoOrigen.setDireccionTorneta("A");
+                    System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
+                            + blindadoOrigen.getDireccionTorneta());
+
+                    blindadoOpenente.setTurno(true);
+                    tablero[fila][col] = new Camino(new Posicion(fila, col), "c");
+                }
+
+                if (tablero[fila][col - 1] instanceof Muro) {
+                    System.out.println("No puedes moverte, hay un muro");
+                    blindadoOrigen.setTurno(false);
+                    blindadoOrigen.setDireccionTorneta("A");
+                    System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
+                            + blindadoOrigen.getDireccionTorneta());
+
+                    blindadoOpenente.setTurno(true);
+                }
+            } else if (direccion.equals("S")) {
+                System.out.println("Movimiento hacia abajo");
+                if (tablero[fila + 1][col] instanceof Camino) {
+                    tablero[fila + 1][col] = blindadoOrigen;
+                    blindadoOrigen.moverFila(fila + 1);
+                    blindadoOrigen.setTurno(false);
+                    blindadoOrigen.setDireccionTorneta("S");
+                    System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
+                            + blindadoOrigen.getDireccionTorneta());
+
+                    blindadoOpenente.setTurno(true);
+                    tablero[fila][col] = new Camino(new Posicion(fila, col), "c");
+                }
+
+                if (tablero[fila + 1][col] instanceof Muro) {
+                    System.out.println("No puedes moverte, hay un muro");
+                    blindadoOrigen.setTurno(false);
+                    blindadoOrigen.setDireccionTorneta("S");
+                    System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
+                            + blindadoOrigen.getDireccionTorneta());
+
+                    blindadoOpenente.setTurno(true);
+                }
+            } else if (direccion.equals("D")) {
+                System.out.println("Movimiento hacia la derecha");
+                if (tablero[fila][col + 1] instanceof Camino) {
+                    tablero[fila][col + 1] = blindadoOrigen; // movemos el blindado
+                    blindadoOrigen.moverColumna(col + 1); // actualizamos fila del blindado
+                    blindadoOrigen.setTurno(false); // cambiamos turno
+                    blindadoOrigen.setDireccionTorneta("D"); // cambiamos direccion de la torneta
+                    System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
+                            + blindadoOrigen.getDireccionTorneta());
+
+                    blindadoOpenente.setTurno(true); // cambiamos turno
+                    tablero[fila][col] = new Camino(new Posicion(fila, col), "c"); // creamos un camino
+                }
+
+                if (tablero[fila][col + 1] instanceof Muro) {
+                    System.out.println("no puedes moverte hay un muro");
+                    blindadoOrigen.setTurno(false); // cambiamos turno
+                    blindadoOrigen.setDireccionTorneta("D"); // cambiamos direccion de la torneta
+                    System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
+                            + blindadoOrigen.getDireccionTorneta());
+
+                    blindadoOpenente.setTurno(true); // cambiamos turno
+                }
+            } else {
+                System.out.println("Movimiento invalido");
             }
 
-            if (tablero[fila - 1][col] instanceof Muro) {
-                System.out.println("no puedes moverte hay un muro");
-                blindadoOrigen.setTurno(false); // cambiamos turno
-                blindadoOrigen.setDireccionTorneta("W"); // cambiamos direccion de la torneta
-                System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
-                        + blindadoOrigen.getDireccionTorneta());
-
-                blindadoOpenente.setTurno(true); // cambiamos turno
-            }
-
-        } else if (direccion.equals("A")) {
-            System.out.println("Movimiento hacia la izquierda");
-            if (tablero[fila][col - 1] instanceof Camino) {
-                tablero[fila][col - 1] = blindadoOrigen;
-                blindadoOrigen.moverColumna(col - 1);
-                blindadoOrigen.setTurno(false);
-                blindadoOrigen.setDireccionTorneta("A");
-                System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
-                        + blindadoOrigen.getDireccionTorneta());
-
-                blindadoOpenente.setTurno(true);
-                tablero[fila][col] = new Camino(new Posicion(fila, col), "c");
-            }
-
-            if (tablero[fila][col - 1] instanceof Muro) {
-                System.out.println("No puedes moverte, hay un muro");
-                blindadoOrigen.setTurno(false);
-                blindadoOrigen.setDireccionTorneta("A");
-                System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
-                        + blindadoOrigen.getDireccionTorneta());
-
-                blindadoOpenente.setTurno(true);
-            }
-        } else if (direccion.equals("S")) {
-            System.out.println("Movimiento hacia abajo");
-            if (tablero[fila + 1][col] instanceof Camino) {
-                tablero[fila + 1][col] = blindadoOrigen;
-                blindadoOrigen.moverFila(fila + 1);
-                blindadoOrigen.setTurno(false);
-                blindadoOrigen.setDireccionTorneta("S");
-                System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
-                        + blindadoOrigen.getDireccionTorneta());
-
-                blindadoOpenente.setTurno(true);
-                tablero[fila][col] = new Camino(new Posicion(fila, col), "c");
-            }
-
-            if (tablero[fila + 1][col] instanceof Muro) {
-                System.out.println("No puedes moverte, hay un muro");
-                blindadoOrigen.setTurno(false);
-                blindadoOrigen.setDireccionTorneta("S");
-                System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
-                        + blindadoOrigen.getDireccionTorneta());
-
-                blindadoOpenente.setTurno(true);
-            }
-        } else if (direccion.equals("D")) {
-            System.out.println("Movimiento hacia la derecha");
-            if (tablero[fila][col + 1] instanceof Camino) {
-                tablero[fila][col + 1] = blindadoOrigen; // movemos el blindado
-                blindadoOrigen.moverColumna(col + 1); // actualizamos fila del blindado
-                blindadoOrigen.setTurno(false); // cambiamos turno
-                blindadoOrigen.setDireccionTorneta("D"); // cambiamos direccion de la torneta
-                System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
-                        + blindadoOrigen.getDireccionTorneta());
-
-                blindadoOpenente.setTurno(true); // cambiamos turno
-                tablero[fila][col] = new Camino(new Posicion(fila, col), "c"); // creamos un camino
-            }
-
-            if (tablero[fila][col + 1] instanceof Muro) {
-                System.out.println("no puedes moverte hay un muro");
-                blindadoOrigen.setTurno(false); // cambiamos turno
-                blindadoOrigen.setDireccionTorneta("D"); // cambiamos direccion de la torneta
-                System.out.println("direccion torneta del blindado " + blindadoOrigen.getNombre() + ": "
-                        + blindadoOrigen.getDireccionTorneta());
-
-                blindadoOpenente.setTurno(true); // cambiamos turno
-            }
-        } else {
-            System.out.println("Movimiento invalido");
+        } catch (Exception e) {
+            System.out.println("ha ocurrido un error" + e.getMessage());
         }
-
     }
 
     public void JugarPartida() {
@@ -286,7 +292,63 @@ public class Tablero {
 
         if (opcion.equals("1")) {
             ObjetoEnTablero proyectil = blindadoOrigen.getAntitanque();
-            System.out.println("Se disparo perforante");
+
+            int fila = blindadoOrigen.obtenerFila(); // obtenemos la fila del blindado
+            int columna = blindadoOrigen.obtenerColumna(); // obtenemos la columna del blindado
+
+            System.out.println("la fila del blindado es " + fila);
+            System.out.println("la columna del blindado es " + columna);
+
+            proyectil.moverFila(fila); // movemos el proyectil a la fila del blindado
+            proyectil.moverColumna(columna); // movemos el proyectil a la columna del blindado
+
+            String direccion = blindadoOrigen.getDireccionTorneta();
+
+            if (direccion.equals("D")) {
+                while (columna + 1 < tablero[fila].length &&
+                        tablero[fila][columna + 1] instanceof Camino) {
+                    proyectil.moverColumna(columna + 1);
+                    columna++;
+                }
+
+                if (proyectil.obtenerColumna() + 1 < tablero[proyectil.obtenerFila()].length) {
+
+                    // en caso de que sea muro
+                    if (tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1] instanceof Muro) {
+                        tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1] = new Camino(
+                                new Posicion(proyectil.obtenerFila(), proyectil.obtenerColumna() + 1), "c");
+                    }
+
+                    // en caso de que sea otro blindado
+                    if (tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1] instanceof Blindado) {
+                        Blindado blindado = (Blindado) tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1];
+                        blindado.setEspesorBlindaje(0);
+                        System.out.println("Se destruyo el blindado " + blindado.getNombre());
+                        // creamos un nuevo camino en la posicion del blindado destruido
+                        tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1] = new Camino(
+                                new Posicion(proyectil.obtenerFila(), proyectil.obtenerColumna() + 1), "c");
+                    }
+                }
+
+                Proyectil p = (Proyectil) proyectil;
+                p.cambiarCantidadProyectil();
+
+                System.out.println("quedan " + p.retornarProyectiles() + " proyectiles");
+                proyectil.moverFila(blindadoOrigen.obtenerFila()); // movemos el proyectil a la fila del blindado
+                proyectil.moverColumna(blindadoOrigen.obtenerColumna()); // movemos el proyectil a la columna del
+                                                                         // blindado
+
+                System.out.println("la fila del proyectil es " + proyectil.obtenerFila());
+                System.out.println("la columna del proyectil es " + proyectil.obtenerColumna());
+
+            } else if (direccion.equals("S")) {
+
+            } else if (direccion.equals("A")) {
+
+            } else { /* W */
+
+            }
+
         }
 
         if (opcion.equals("2")) {

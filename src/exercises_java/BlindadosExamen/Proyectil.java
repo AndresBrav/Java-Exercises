@@ -12,13 +12,14 @@ import exercises_java.BlindadosExamen.Objetos.Posicion;
  */
 
 import exercises_java.BlindadosExamen.Objetos.ObjetoEnTablero;
+
 public class Proyectil extends ObjetoEnTablero {
 
     protected int cantidad;
     protected String tipo;
 
-    public Proyectil(Posicion pos1,String nombre, int cantidad, String tipo) {
-        super(pos1,nombre);
+    public Proyectil(Posicion pos1, String nombre, int cantidad, String tipo) {
+        super(pos1, nombre);
         this.cantidad = cantidad;
         this.tipo = tipo;
     }
@@ -34,4 +35,5 @@ public class Proyectil extends ObjetoEnTablero {
     public String retornarTipo() {
         return tipo;
     }
+
 }

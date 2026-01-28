@@ -26,10 +26,10 @@ public class Blindado extends ObjetoEnTablero {
         super(posblindado, nombre);
         this.espesorBlindaje = espesorBlindaje;
         this.turno = turno;
-        this.antitanque = new ProyectilAntitanque(posblindado, "proAnti", 150, "AT");
-        this.explosivo = new ProyectilExplosivo(posblindado, "proExplo", 100, "EX");
-        this.normal = new ProyectilNormal(posblindado, "proNormal", 50, "NO");
-        this.perforante = new ProyectilPerforante(posblindado, "proPerfora", 200, "PE");
+        this.antitanque = new ProyectilAntitanque(new Posicion(), "proAnti", 150, "AT");
+        this.explosivo = new ProyectilExplosivo(new Posicion(), "proExplo", 100, "EX");
+        this.normal = new ProyectilNormal(new Posicion(), "proNormal", 50, "NO");
+        this.perforante = new ProyectilPerforante(new Posicion(), "proPerfora", 200, "PE");
     }
 
     public boolean isTurno() {

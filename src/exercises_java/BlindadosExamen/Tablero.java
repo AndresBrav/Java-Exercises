@@ -283,9 +283,7 @@ public class Tablero {
 
         System.out.println("Elige una de las opciones");
         System.out.println("1: Perforante\n" +
-                "2: Explosivo\n" +
-                "3: Incendiario\n" +
-                "4: Humoristico\n");
+                "2: Explosivo\n");
 
         Scanner sc = new Scanner(System.in);
         String opcion = sc.nextLine();
@@ -433,14 +431,138 @@ public class Tablero {
 
         if (opcion.equals("2")) {
             System.out.println("Se disparo explosivo");
-        }
 
-        if (opcion.equals("3")) {
-            System.out.println("Se disparo antitanque");
-        }
+            ObjetoEnTablero proyectil = blindadoOrigen.getExplosivo();
 
-        if (opcion.equals("4")) {
-            System.out.println("Se disparo normal");
+            int fila = blindadoOrigen.obtenerFila(); // obtenemos la fila del blindado
+            int columna = blindadoOrigen.obtenerColumna(); // obtenemos la columna del blindado
+
+            System.out.println("la fila del blindado es " + fila);
+            System.out.println("la columna del blindado es " + columna);
+
+            proyectil.moverFila(fila); // movemos el proyectil a la fila del blindado
+            proyectil.moverColumna(columna); // movemos el proyectil a la columna del blindado
+
+            String direccion = blindadoOrigen.getDireccionTorneta();
+
+            if (direccion.equals("D")) {
+                // DERECHA → columna + 1
+                while (columna + 1 < tablero[fila].length &&
+                        tablero[fila][columna + 1] instanceof Camino) {
+
+                    proyectil.moverColumna(columna + 1);
+                    columna++;
+                }
+
+                if (proyectil.obtenerColumna() + 1 < tablero[proyectil.obtenerFila()].length) {
+
+                    // muro
+                    if (tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1] instanceof Muro) {
+
+                        Muro muro = (Muro) tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1];
+                        muro.setGrosor((int) (muro.getGrosor() - (muro.getGrosor() * 0.25)));
+                        System.out.println("El grosor del muro es " + muro.getGrosor());
+                    }
+
+                    // blindado
+                    if (tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1] instanceof Blindado) {
+                        Blindado blindado = (Blindado) tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() + 1];
+
+                        blindado.setEspesorBlindaje(
+                                (int) (blindado.getEspesorBlindaje() - (blindado.getEspesorBlindaje() * 0.25)));
+                        System.out.println("El grosor del blindado es " + blindado.getEspesorBlindaje());
+
+                    }
+                }
+
+            } else if (direccion.equals("A")) {
+                // IZQUIERDA → columna - 1
+                while (columna - 1 >= 0 &&
+                        tablero[fila][columna - 1] instanceof Camino) {
+
+                    proyectil.moverColumna(columna - 1);
+                    columna--;
+                }
+
+                if (proyectil.obtenerColumna() - 1 >= 0) {
+
+                    // muro
+                    if (tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() - 1] instanceof Muro) {
+                        Muro muro = (Muro) tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() - 1];
+                        muro.setGrosor((int) (muro.getGrosor() - (muro.getGrosor() * 0.25)));
+                        System.out.println("El grosor del muro es " + muro.getGrosor());
+                    }
+
+                    // blindado
+                    if (tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() - 1] instanceof Blindado) {
+                        Blindado blindado = (Blindado) tablero[proyectil.obtenerFila()][proyectil.obtenerColumna() - 1];
+
+                        blindado.setEspesorBlindaje(
+                                (int) (blindado.getEspesorBlindaje() - (blindado.getEspesorBlindaje() * 0.25)));
+                        System.out.println("El grosor del blindado es " + blindado.getEspesorBlindaje());
+
+                    }
+                }
+
+            } else if (direccion.equals("S")) {
+                // ABAJO → fila + 1
+                while (fila + 1 < tablero.length &&
+                        tablero[fila + 1][columna] instanceof Camino) {
+
+                    proyectil.moverFila(fila + 1);
+                    fila++;
+                }
+
+                if (proyectil.obtenerFila() + 1 < tablero.length) {
+
+                    // muro
+                    if (tablero[proyectil.obtenerFila() + 1][proyectil.obtenerColumna()] instanceof Muro) {
+
+                        Muro muro = (Muro) tablero[proyectil.obtenerFila() + 1][proyectil.obtenerColumna()];
+                        muro.setGrosor((int) (muro.getGrosor() - (muro.getGrosor() * 0.25)));
+                        System.out.println("El grosor del muro es " + muro.getGrosor());
+                    }
+
+                    // blindado
+                    if (tablero[proyectil.obtenerFila() + 1][proyectil.obtenerColumna()] instanceof Blindado) {
+                        Blindado blindado = (Blindado) tablero[proyectil.obtenerFila() + 1][proyectil.obtenerColumna()];
+
+                        blindado.setEspesorBlindaje(
+                                (int) (blindado.getEspesorBlindaje() - (blindado.getEspesorBlindaje() * 0.25)));
+                        System.out.println("El grosor del blindado es " + blindado.getEspesorBlindaje());
+                    }
+                }
+
+            } else { // W
+                // ARRIBA → fila - 1
+                while (fila - 1 >= 0 &&
+                        tablero[fila - 1][columna] instanceof Camino) {
+
+                    proyectil.moverFila(fila - 1);
+                    fila--;
+                }
+
+                if (proyectil.obtenerFila() - 1 >= 0) {
+
+                    // muro
+                    if (tablero[proyectil.obtenerFila() - 1][proyectil.obtenerColumna()] instanceof Muro) {
+
+                        Muro muro = (Muro) tablero[proyectil.obtenerFila() - 1][proyectil.obtenerColumna()];
+                        muro.setGrosor((int) (muro.getGrosor() - (muro.getGrosor() * 0.25)));
+                        System.out.println("El grosor del muro es " + muro.getGrosor());
+                    }
+
+                    // blindado
+                    if (tablero[proyectil.obtenerFila() - 1][proyectil.obtenerColumna()] instanceof Blindado) {
+                        Blindado blindado = (Blindado) tablero[proyectil.obtenerFila() - 1][proyectil.obtenerColumna()];
+
+                        blindado.setEspesorBlindaje(
+                                (int) (blindado.getEspesorBlindaje() - (blindado.getEspesorBlindaje() * 0.25)));
+                        System.out.println("El grosor del blindado es " + blindado.getEspesorBlindaje());
+                    }
+                }
+            }
+
         }
 
         blindadoOrigen.setTurno(false);

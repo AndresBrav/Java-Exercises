@@ -2,27 +2,36 @@ package Digital_Harbor_Exams;
 
 import java.util.Scanner;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
 public class Fibonacci {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Ingrese A");
-        int a = sc.nextInt();
-        System.out.println("Ingrese B");
-        int b = sc.nextInt();
-        System.out.println("Ingrese N");
-        int N = sc.nextInt();
-        int resultado = calcularSucesion(a, b, N);
+        long a = sc.nextLong();
+        long b = sc.nextLong();
+        long N = sc.nextLong();
+
+        // System.out.println(a + " " + b + " " + N);
+        long resultado = calcularSucesion(a, b, N);
         System.out.println("El resultado es " + resultado);
     }
 
-    public static int calcularSucesion(int a, int b, int N) {
+    public static long calcularSucesion(long a, long b, long N) {
 
-        int iterador = 2;
-        int resultado = 0;
+        long iterador = 2;
+        long resultado = 0;
+        if (N == 1) {
+            return a;
+        }
+        if (N == 2) {
+            return b;
+        }
 
         while (iterador < N) {
-            resultado = (int) Math.pow(b, 2) + a;
+            resultado = (b * b) + a;
             a = b;
             b = resultado;
 

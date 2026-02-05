@@ -1,53 +1,54 @@
 package Digital_Harbor_Exams;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class NumeroAlegre {
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
+        if (!sc.hasNextInt())
+            return;
 
-        int q = sc.nextInt(); // número de consultas
-
-        int iterador = 0;
-
-        while (iterador < q) {
-            int X = sc.nextInt();
-            System.out.println(obtenerXAlegre(X));
-            iterador++;
+        int q = sc.nextInt();
+        while (q-- > 0) {
+            int targetX = sc.nextInt();
+            System.out.println(obtenerXAlegreOptimizado(targetX));
         }
-
         sc.close();
-
     }
 
-    static boolean esAlegre(int num) {
-        String s = String.valueOf(num);
+    public static long obtenerXAlegreOptimizado(int n) {
 
-        for (int i = 0; i < s.length() - 1; i++) {
-            int a = s.charAt(i) - '0';
-            int b = s.charAt(i + 1) - '0';
+        if (n <= 9)
+            return n;
 
-            if (Math.abs(a - b) > 1) {
-                return false;
-            }
+        Queue<Long> cola = new LinkedList<>();
+        for (long i = 1; i <= 9; i++) {
+            cola.add(i);
         }
-        return true;
-    }
 
-    static int obtenerXAlegre(int X) {
         int contador = 0;
-        int num = 1;
+        long actual = 0;
 
-        while (true) {
-            if (esAlegre(num)) {
-                contador++;
-                if (contador == X) {
-                    return num;
-                }
+        while (!cola.isEmpty()) {
+            actual = cola.poll();
+            contador++;
+
+            if (contador == n) {
+                return actual;
             }
-            num++;
+
+            long ultimoDigito = actual % 10;
+
+            if (ultimoDigito > 0) {
+                cola.add(actual * 10 + (ultimoDigito - 1));
+            }
+            if (ultimoDigito < 9) {
+                cola.add(actual * 10 + (ultimoDigito + 1));
+            }
         }
+        return actual;
     }
 }

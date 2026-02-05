@@ -1,6 +1,7 @@
 package Digital_Harbor_Exams;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.util.*;
 
 public class Fibonacci {
@@ -11,32 +12,25 @@ public class Fibonacci {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             StringTokenizer st = new StringTokenizer(br.readLine());
 
-            long a = Long.parseLong(st.nextToken());
-            long b = Long.parseLong(st.nextToken());
+            BigInteger a = new BigInteger(st.nextToken());
+            BigInteger b = new BigInteger(st.nextToken());
             long N = Long.parseLong(st.nextToken());
 
-            long resultado = calcularSucesion(a, b, N);
+            BigInteger resultado = calcularSucesion(a, b, N);
             System.out.print(resultado);
         } catch (Exception e) {
         }
     }
 
-    public static long calcularSucesion(long a, long b, long N) {
-
-        if (N == 1)
-            return a;
-        if (N == 2)
-            return b;
-
-        long resultado = 0;
+    public static BigInteger calcularSucesion(BigInteger a, BigInteger b, long N) {
+        BigInteger resultado = BigInteger.ZERO;
 
         for (long i = 3; i <= N; i++) {
-            resultado = (b * b) + a;
+            resultado = b.multiply(b).add(a);
             a = b;
             b = resultado;
         }
 
         return resultado;
     }
-
 }
